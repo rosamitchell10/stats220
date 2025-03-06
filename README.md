@@ -17,6 +17,7 @@ This is my repo for STATS 220.
 [*Here is a link to a recipe I want to make soon*](https://heartbeetkitchen.com/easy-seeded-sourdough-bread/)
 
 **Me when I make the recipe**
+
 ![](https://media1.tenor.com/m/6h-rjcvhFY8AAAAd/chef-master.gif)
 
 A meme that captures how I currently feel about my university studies is ![](https://media1.tenor.com/m/isiLRnxz3zwAAAAC/cat-driving-serious.gif)
