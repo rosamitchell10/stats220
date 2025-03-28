@@ -1,0 +1,150 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+body {
+  font-family: 'Montserrat';
+  background-color: #fbeaff;
+  color: #005ea0;
+}
+
+h1    {
+  font-family: "Calistoga", serif;
+  font-weight: bold;
+}
+
+h2    {
+  font-family: "Calistoga", serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+h3    {
+  text-align: center;
+}
+
+h4    {
+  text-align: center;
+  font-family: "Shadows Into Light", cursive;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+p   {
+  font-family: 'Montserrat';
+  text-align: center;
+}
+
+```
+
+## What are my listening habits on spotify?
+
+I used the survey project to better understand my listening habits on spotify. I classified each time I listened to music as a 'session' and answered questions about each listening session that I had. Variables that I recorded in my survey included the duration of listening, the reason for listening, the enjoyment ranking, whether I had a favourite song from that session, did I start by shuffling or choosing a specific song, did I listen to a playlist or listen from another source ect. The survey gave me insights into why and how I listen to music. 
+
+![](music_meme.png)
+
+```{r}
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzPeDfeBK7dfTaUOQCgW5-5Ns-hlTGi9O2A6D1Waech1ZyfAg7gO4CVRFaqCvoSgQLPuAIBdoa-dAw/pub?gid=1796407430&single=true&output=csv")
+
+#renaming variables
+latest_data <- logged_data %>%
+    rename(timestamp = 1,
+           duration = 2,
+           reason = 3,
+           source = 4,
+           new_songs = 5,
+           rating = 6,
+           favourite = 7,
+           start = 8,
+           select_song = 9,
+           select_reason = 10)
+
+max_rate <- latest_data %>%
+              select(rating) %>% max()
+
+min_rate <- latest_data %>%
+              select(rating) %>% min()
+rate <- paste("The maximum enjoyment rating of a session was", max_rate, "out of 9. The minimum enjoyment rating of a session was", min_rate, "out of 9.")
+
+new_max <- latest_data %>%
+              select(new_songs) %>% max()
+
+songs_new <- paste("the maximum amount of new songs that I listened to in one session was", new_max,". This must have been on a day that I was listening to spotify generated playlists.")
+
+
+
+```
+There were some interesting results regarding the enjoyment ratings of each session. `r rate` I also tracked the amount of new songs I listened to per session. Most of the time I listened to 0 new songs. However, `r songs_new`
+
+Some of the data of my listening habits can be seen in the following figures.
+      
+```{r fig.width = 7, fig.height = 4}
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzPeDfeBK7dfTaUOQCgW5-5Ns-hlTGi9O2A6D1Waech1ZyfAg7gO4CVRFaqCvoSgQLPuAIBdoa-dAw/pub?gid=1796407430&single=true&output=csv")
+
+#renaming variables
+latest_data <- logged_data %>%
+    rename(timestamp = 1,
+           duration = 2,
+           reason = 3,
+           source = 4,
+           new_songs = 5,
+           rating = 6,
+           favourite = 7,
+           start = 8,
+           select_song = 9,
+           select_reason = 10)
+
+ggplot(data = latest_data) +
+           geom_bar(aes(x = rating,
+                      fill = reason)) +
+      labs(title = "Is it the Music or the Act?",
+       subtitle = "Comparing the enjoyment rating of listening to music with the reason for listening",
+       caption = "Source: Rosa Mitchell's Listening Survey Data",
+       x = "Enjoyment Rating (1 is did not enjoy, 9 is very much enjoyed)",
+       y = "Frequency of rating") +
+  scale_fill_discrete(name = "Reason for listening")
+
+```
+
+
+
+```{r fig.width = 7, fig.height = 4}
+ggplot(data = latest_data) +
+              geom_bar(aes(y = reason, fill = source))+
+  labs(title = "The Reason vs The Source",
+       subtitle = "Does the reason for listening dictate the source of the music?",
+       caption = "Source: Rosa Mitchell's Listening Survey Data",
+       x = "Frequency",
+       y = "Reason for Listening") +
+  scale_fill_discrete(name = "Source of music")
+
+```
+
+
+
+```{r fig.width = 7, fig.height = 4}
+ggplot(data = latest_data) +
+            geom_bar(aes(y = favourite), 
+                    fill = "#ffb6f7") + #changing the colour 
+       labs(title = "How often was a single was song my 'favourite'?",
+       subtitle = "The songs I listed as my favourite from a listening session 
+and how often they appeared",
+       caption = "Source: Rosa Mitchell's Listening Survey Data",
+       x = "Name of the song and the artist",
+       y = "Frequency")
+
+
+```
+
+
