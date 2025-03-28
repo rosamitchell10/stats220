@@ -15,7 +15,7 @@ library(tidyverse)
 
 body {
   font-family: 'Montserrat';
-  background-color: #EFFFFE;
+  background-color: #ffedfc;
   color: #005ea0;
 }
 
