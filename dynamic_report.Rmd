@@ -52,7 +52,7 @@ p   {
 
 I used the survey project to better understand my listening habits on spotify. I classified each time I listened to music as a 'session' and answered questions about each listening session that I had. Variables that I recorded in my survey included the duration of listening, the reason for listening, the enjoyment ranking, whether I had a favourite song from that session, did I start by shuffling or choosing a specific song, did I listen to a playlist or listen from another source ect. The survey gave me insights into why and how I listen to music. 
 
-![](music_meme.png)
+![](https://raw.githubusercontent.com/rosamitchell10/stats220/refs/heads/main/music_meme.png)
 
 ```{r}
 logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzPeDfeBK7dfTaUOQCgW5-5Ns-hlTGi9O2A6D1Waech1ZyfAg7gO4CVRFaqCvoSgQLPuAIBdoa-dAw/pub?gid=1796407430&single=true&output=csv")
